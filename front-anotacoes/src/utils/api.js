@@ -15,6 +15,23 @@ const api = {
     );
     return request.data;
   },
+  addCard: async (data) => {
+    await axios({
+      method: "POST",
+      data: data,
+      url: "tasks",
+    });
+  },
+  deleteCard: async (cardId) => {
+    await axios.delete(`tasks?id=${cardId}`);
+  },
+  addLane: async (data) => {
+    await axios({
+      method: "POST",
+      data: data,
+      url: "container",
+    });
+  },
 };
 
 export default api;
