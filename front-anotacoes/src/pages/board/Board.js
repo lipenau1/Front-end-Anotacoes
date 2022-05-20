@@ -35,7 +35,7 @@ export default function Board() {
   };
 
   const showCards = (data) => {
-    return <BoardCard className={boardCss} data={data} canAddLanes={true} />;
+    return <BoardCard className={boardCss} data={data} editable={true} />;
   };
   return <>{isLoading ? showCards(dataDefault) : showCards(cards)}</>;
 }
