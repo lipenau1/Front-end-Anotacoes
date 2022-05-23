@@ -69,7 +69,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function Home() {
-    const theme = useTheme();
+    const theme = useTheme(); 
     const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
@@ -85,7 +85,7 @@ export default function Home() {
             <CssBaseline />
             <AppBar position="fixed" open={open}>
 
-                <Toolbar className=''>
+                <Toolbar className='background'>
                     <Grid container>
 
                         <IconButton
@@ -125,7 +125,7 @@ export default function Home() {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                    {['Home'].map((text, index) => (
                         <ListItem button key={text}>
                             <ListItemIcon>
                                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
