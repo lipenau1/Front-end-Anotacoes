@@ -79,22 +79,7 @@ export default function Board() {
   };
 
   const showCards = (data) => {
-    return (
-      <BoardCard
-        className={boardCss}
-        data={data}
-        editable={true}
-        draggable={true}
-        onCardAdd={addCard}
-        onCardDelete={deleteCard}
-        onLaneUpdate={dataChange}
-        canAddLanes={true}
-        onLaneAdd={addLane}
-        onLaneDelete={deleteLane}
-        handleLaneDragEnd={updateLane}
-        handleDragEnd={updateCard}
-      />
-    );
+    return <BoardCard className={boardCss} data={data} editable={true} />;
   };
   return <>{isLoading ? showCards(dataDefault) : showCards(cards)}</>;
 }
