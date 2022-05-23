@@ -32,6 +32,10 @@ const api = {
       url: "container",
     });
   },
+
+  deleteLane: async (laneId) => {
+    await axios.delete(`http://localhost:5001/container/${laneId}`);
+  },
 };
 
 export default api;
