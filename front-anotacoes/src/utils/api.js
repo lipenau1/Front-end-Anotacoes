@@ -9,6 +9,14 @@ const api = {
     });
     return request;
   },
+  register: async (data) => {
+    const request = await axios({
+      method: "POST",
+      data: data,
+      url: "user",
+    });
+    return request;
+  },
   cards: async (data) => {
     const request = await axios.get(
       `http://localhost:5001/container/board?id=${data}`
