@@ -32,7 +32,20 @@ const api = {
       url: "container",
     });
   },
-
+  changeLane: async (data) => {
+    await axios({
+      method: "PUT",
+      data: data,
+      url: "container/change-position-container",
+    });
+  },
+  changeCard: async (data) => {
+    await axios({
+      method: "PUT",
+      data: data,
+      url: "container/change-position-card",
+    });
+  },
   deleteLane: async (laneId) => {
     await axios.delete(`http://localhost:5001/container/${laneId}`);
   },
