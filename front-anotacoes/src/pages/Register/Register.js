@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Login.css';
+import './Register.css';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -7,25 +7,27 @@ import SaveIcon from '@mui/icons-material/Save';
 import TextField from '@mui/material/TextField';
 import { useFormik } from 'formik';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import api from './../../utils/api';
+import api from '../../utils/api';
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
+
 
     let navigate = useNavigate();
-
-
 
     const [errors, setErrors] = useState({});
 
     const validateErrors = (values) => {
         let newError = {}
 
-        if (!values.user) {
-            newError.user = { error: true, helperText: "Login nao pode ser vazio" }
+        if (!values.name) {
+            newError.name = { error: true, helperText: "Login nao pode ser vazio" }
         }
         if (!values.password) {
             newError.password = { error: true, helperText: "Senha nao pode ser vazio" }
+        }
+        if (!values.email) {
+            newError.password = { error: true, helperText: "Email nao pode ser vazio" }
         }
         if (Object.keys(newError).length) {
             setErrors(newError)
@@ -41,31 +43,35 @@ export default function Login() {
 
 
     const submitForm = (values) => {
-
         if (!validateErrors(values)) {
             return false
         }
         const request = {
-            login: values.user,
-            password: values.password
+            name: values.user,
+            password: values.password,
+            email: values.email
         }
 
-        let response = api.login(request).then((res) => {
+        let response = api.register(request).then((res) => {
 
             console.log(res);
             if (!res.data) {
                 return alert('deu merda piazada')
-            }else{
-                navigate('/home')
             }
-        }); 
+            else{
+                navigate('/login');
+            }
+        });
 
     };
+
+
 
     const loginFormik = useFormik({
         initialValues: {
             user: "",
             password: "",
+            email: ""
         },
         onSubmit: submitForm
     });
@@ -75,14 +81,14 @@ export default function Login() {
             <Box className='sign-up'>
                 <div className='sign-up-form'>
                     <div className='sing-text-login'>
-                        <h2>Login</h2>
+                        <h2>Sign up</h2>
                     </div>
                     <form className='sing-up-input-form' onSubmit={loginFormik.handleSubmit}>
                         <div className='sing-up-input'>
 
 
                             <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                            <TextField name='user'
+                            <TextField name='name'
                                 autoFocus='true'
                                 type={'string'}
                                 label="Login"
@@ -97,6 +103,23 @@ export default function Login() {
                                 values={loginFormik.values.user}
                             />
                         </div>
+                        <div className='sing-up-input'>
+                            <TextField name='email'
+                                autoFocus='true'
+                                type={'string'}
+                                label="E-mail"
+                                variant="standard"
+                                required
+                                size='small'
+                                autoComplete="off"
+                                onChange={(e) => {
+                                    resetError(e.target.name);
+                                    loginFormik.handleChange(e)
+                                }}
+                                values={loginFormik.values.email}
+                            />
+                        </div>
+
                         <div className='sing-up-input'>
                             <TextField name='password'
                                 type={'password'}
@@ -117,9 +140,9 @@ export default function Login() {
                                 Send
                             </Button>
                             <div className='login-bottom'>
-                            <Link to={"/register"}
-                            >Don't have an account?
-                            </Link>
+                                <Link to={"/login"}>
+                                    Have an account?
+                                </Link>
                             </div>
                         </div>
                     </form>
