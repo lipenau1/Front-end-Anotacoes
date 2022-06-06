@@ -17,6 +17,14 @@ const api = {
     });
     return request;
   },
+  postTable: async (data) => {
+    const request = await axios({
+      method: "POST",
+      data: data,
+      url: "boards",
+    });
+    return request;
+  },
   cards: async (data) => {
     const request = await axios.get(
       `http://localhost:5001/container/board?id=${data}`

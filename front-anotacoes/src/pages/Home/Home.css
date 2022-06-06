@@ -154,5 +154,39 @@ p {
 
 
 .background {
+  background-color: #2f3136;;
+}
+
+.goTopHidden{
+  display: none;
+}
+
+.goTop{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
   background-color: #303030;
+  color: whitesmoke;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  line-height: 2rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.goTop:hover{
+  background-color: #252525;
+  transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.teste{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
