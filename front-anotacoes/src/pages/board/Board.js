@@ -65,19 +65,12 @@ export default function Board() {
     await api.deleteLane(data);
   };
 
-  const updateLane = async (removedIndex, addedIndex, payload) => {
-    console.log(payload);
-    return;
-    const requestObject = {
-      boardId: id,
-      removedIndex: removedIndex,
-      updatedIndex: addedIndex,
-    };
-    await api.changeLane(requestObject);
-  };
-
   const updateBoard = async (newData) => {
-    console.log(newData);
+    const requestObject = {
+      id: id,
+      lanes: newData.lanes,
+    };
+    await api.changeBoardData(requestObject);
   };
 
   const updateCard = async (
@@ -104,7 +97,6 @@ export default function Board() {
         onDataChange={updateBoard}
         onLaneAdd={addLane}
         onLaneDelete={deleteLane}
-        handleLaneDragEnd={updateLane}
         handleDragEnd={updateCard}
       />
     );

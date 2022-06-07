@@ -70,6 +70,13 @@ const api = {
       url: "container/change-position-card",
     });
   },
+  changeBoardData: async (data) => {
+    await axios({
+      method: "PUT",
+      data: data,
+      url: "boards/update-board",
+    });
+  },
   deleteLane: async (laneId) => {
     await axios.delete(`http://localhost:5001/container/${laneId}`);
   },
