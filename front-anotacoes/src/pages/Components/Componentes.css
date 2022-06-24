@@ -1,0 +1,20 @@
+.buttonRed{
+    background-color: hsl(359, 67%, 54%);
+    color: #ffff;
+    border: 0;
+    border-radius: 3px !important;
+    width: 5.5rem;
+    height: 2.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buttonRed:hover{
+    background-color: hsl(359, 67%, 44%);
+}
+
+
+.logout_h5{
+    font-size: 14px;
+    color: hsl(270, 2%, 74%);
+}

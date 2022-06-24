@@ -2,7 +2,11 @@ import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import Typography from '@mui/material/Typography';
+import './Componentes.css'
+import { useNavigate } from "react-router-dom";
+
+
+
 
 const LogoutDialog = forwardRef((props, ref) => {
     const [open, setOpen] = useState(false);
@@ -18,6 +22,12 @@ const LogoutDialog = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
         show,
     }));
+
+    let navigate = useNavigate();
+
+    const backlogin = () => {
+        navigate('/login');
+    }
 
     return (
         <Modal
@@ -40,15 +50,57 @@ const LogoutDialog = forwardRef((props, ref) => {
                     width: 400,
                     bgcolor: 'background.paper',
                     border: 0,
-                    borderRadius : 4,
+                    borderRadius: 1,
                     backgroundColor: 'hsl(220, 8%, 23%)',
                     color: 'white',
                     boxShadow: 24,
-                    p: 4,
-                    display: 'flex',
-                  }}>
-                    <h1>Você tem certeza que deseja sair?</h1>
+                    paddingLeft: "-10rem"
+                }}>
 
+                <Box
+                    sx={{
+                        marginLeft: "1rem",
+                        marginTop: "1rem"
+                    }}
+                >
+                    <h3>Log Out</h3>
+                </Box>
+
+                <Box
+                    sx={{
+                        marginLeft: "1rem",
+                        marginTop: "1rem",
+                        marginBottom: '3rem', 
+                        fontSize: '14px',
+                        color: 'hsl(270, 2%, 74%)'                      
+
+                    }}
+                >
+                    <h5
+                    className='logout_h5'>
+                        Are you sure want to log out?</h5>
+                </Box>
+
+                <Box
+                    sx={{
+                        backgroundColor: "hsl(225, 8%, 20%)",
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: "flex-end",
+                        padding: "1rem",
+
+                    }}
+                >
+                    <button
+                        sx={{
+
+                        }}
+                        className='buttonRed'
+                        onClick={backlogin}
+                        >
+                        Log Out
+                    </button>
+                </Box>
             </Box>
         </Modal>
     );

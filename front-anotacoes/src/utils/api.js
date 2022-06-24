@@ -27,7 +27,7 @@ const api = {
   },
   getTable: async (data) => {
     const request = await axios({
-      method: "POST",
+      method: "GET",
       data: data,
       url: "boards",
     });

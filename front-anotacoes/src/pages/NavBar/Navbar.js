@@ -83,7 +83,7 @@ export default function Navbar() {
             if (!res.data) {
                 return alert('deu merda piazada')
             } else {
-                navigate('/home')
+                navigate('/board/' + res.data.id);
             }
         });
 
@@ -170,16 +170,7 @@ export default function Navbar() {
                     </Link>
                 </a>
                 <li class="divider"></li>
-                <li class="squircle purple-boi">
-                    <div class="popper-boi">
-                        <h4 class="popper-text">The Factory</h4>
-                    </div>
-                </li>
-                <li class="squircle purple-boi">
-                    <div class="popper-boi">
-                        <h4 class="popper-text">School of Programming</h4>
-                    </div>
-                </li>
+                
                 <a onClick={handleOpen}>
                     <li class="squircle green-boi">
 
@@ -196,7 +187,7 @@ export default function Navbar() {
                         <path fill="currentColor" d="M12 10.9C11.39 10.9 10.9 11.39 10.9 12C10.9 12.61 11.39 13.1 12 13.1C12.61 13.1 13.1 12.61 13.1 12C13.1 11.39 12.61 10.9 12 10.9ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM14.19 14.19L6 18L9.81 9.81L18 6L14.19 14.19Z"></path>
                     </svg>
                     <div class="popper-boi">
-                        <h4 class="popper-text">Explore Public Servers</h4>
+                        <h4 class="popper-text">Comi cu de quem ta lendo</h4>
                     </div>
                 </li>
             </ul>

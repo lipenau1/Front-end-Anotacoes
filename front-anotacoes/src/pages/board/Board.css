@@ -1,4 +1,13 @@
 .react-trello-lane {
     border: 0;
     background-color: black;
+    margin-left: 18vh;
+}
+
+.cardStyle{
+    background-color: red !important;
+}
+
+.cardDropClass{
+    background-color: red;
 }
