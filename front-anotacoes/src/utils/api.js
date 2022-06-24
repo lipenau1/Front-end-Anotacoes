@@ -64,7 +64,7 @@ const api = {
   },
   changeBoardData: async (data) => {
     await axios({
-      method: "PUT",
+      method: "POST",
       data: data,
       url: "boards/update-board",
     });

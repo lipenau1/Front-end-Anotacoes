@@ -1,37 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, Fragment } from "react";
 import { useParams } from "react-router-dom";
 import BoardCard from "react-trello";
 import api from "../../utils/api";
 import boardCss from "./Board.css";
 
 export default function Board() {
-  const [cards, setCards] = useState({});
+  const [cards, setCards] = useState({
+    lanes: [],
+  });
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
 
-  const getBoard = async () => {
+  const getBoard = useCallback(async () => {
     setCards({
-      lanes: await api.cards(id).then((res) => {
-        return res;
-      }),
+      lanes: await api.cards(id),
     });
     setIsLoading(false);
-  };
+  }, [id]);
 
   useEffect(() => {
     getBoard();
-  }, []);
-
-  const dataDefault = {
-    lanes: [
-      {
-        id: "lane1",
-        title: "Create your first card",
-        label: "",
-        cards: [],
-      },
-    ],
-  };
+  }, [getBoard]);
 
   const addCard = async (card, laneId) => {
     const cardRequest = {
@@ -44,27 +33,6 @@ export default function Board() {
     await api.addCard(cardRequest).then((res) => res);
   };
 
-  const deleteCard = async (cardId) => {
-    await api.deleteCard(cardId);
-  };
-
-  const dataChange = async (laneId, newData) => {
-    console.log(laneId, newData);
-  };
-
-  const addLane = async (data) => {
-    const requestObject = {
-      title: data.title,
-      boardId: id,
-      id: data.id,
-    };
-    await api.addLane(requestObject);
-  };
-
-  const deleteLane = async (data) => {
-    await api.deleteLane(data);
-  };
-
   const updateBoard = async (newData) => {
     const requestObject = {
       id: id,
@@ -72,34 +40,19 @@ export default function Board() {
     };
     await api.changeBoardData(requestObject);
   };
-
-  const updateCard = async (
-    cardId,
-    sourceLaneId,
-    targetLaneId,
-    position,
-    cardDetails
-  ) => {
-    console.log(cardId, sourceLaneId, targetLaneId, position, cardDetails);
-  };
-
-  const showCards = (data) => {
-    return (
+  console.log(cards);
+  return (
+    <Fragment>
+      {isLoading && <div>Carregando</div>}
       <BoardCard
         className={boardCss}
-        data={data}
+        data={cards}
         editable={true}
         draggable={true}
         onCardAdd={addCard}
-        onCardDelete={deleteCard}
-        onLaneUpdate={dataChange}
         canAddLanes={true}
         onDataChange={updateBoard}
-        onLaneAdd={addLane}
-        onLaneDelete={deleteLane}
-        handleDragEnd={updateCard}
       />
-    );
-  };
-  return <>{isLoading ? showCards(dataDefault) : showCards(cards)}</>;
+    </Fragment>
+  );
 }
