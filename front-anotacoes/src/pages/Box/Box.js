@@ -18,9 +18,10 @@ export default function Boxed() {
 
   return (
     <Fragment>
+      <div class="center">
       {isLoading && <div>Carregando</div>}
       {data.map((data) => (
-        <div class="center" key={data.id}>
+        <div key={data.id}>
           <div class="card-container">
             <div class="property-card">
               <Link to={`/board/${data.id}`}>
@@ -38,6 +39,7 @@ export default function Boxed() {
           </div>
         </div>
       ))}
+      </div>
     </Fragment>
   );
 }
