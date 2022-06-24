@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom";
 import BoardCard from "react-trello";
 import api from "../../utils/api";
 import boardCss from "./Board.css";
+import Navbar from "../NavBar/Navbar";
+import Box from '@mui/material/Box';
+
 
 export default function Board() {
   const [cards, setCards] = useState({});
@@ -56,6 +59,7 @@ export default function Board() {
     const requestObject = {
       title: data.title,
       boardId: id,
+      id: data.id,
     };
     await api.addLane(requestObject);
   };
@@ -64,8 +68,12 @@ export default function Board() {
     await api.deleteLane(data);
   };
 
-  const updateLane = async (removedIndex, addedIndex, payload) => {
-    console.log(removedIndex, addedIndex, payload);
+  const updateBoard = async (newData) => {
+    const requestObject = {
+      id: id,
+      lanes: newData.lanes,
+    };
+    await api.changeBoardData(requestObject);
   };
 
   const updateCard = async (
@@ -79,7 +87,29 @@ export default function Board() {
   };
 
   const showCards = (data) => {
-    return <BoardCard className={boardCss} data={data} editable={true} />;
+    return (
+      <Box sx={{ display: 'flex' }} className='background'>
+      <Navbar/>
+        <BoardCard
+          className={boardCss}
+          data={data}
+          editable={true}
+          draggable={true}
+          onCardAdd={addCard}
+          onCardDelete={deleteCard}
+          onLaneUpdate={dataChange}
+          canAddLanes={true}
+          onDataChange={updateBoard}
+          onLaneAdd={addLane}
+          onLaneDelete={deleteLane}
+          handleDragEnd={updateCard}
+          style={{
+            marginLeft: '80px',
+            backgroundColor: '#2F3136'
+          }}
+        />
+      </Box>
+    );
   };
   return <>{isLoading ? showCards(dataDefault) : showCards(cards)}</>;
 }

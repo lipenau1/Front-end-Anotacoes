@@ -14,8 +14,6 @@ export default function Login() {
 
     let navigate = useNavigate();
 
-
-
     const [errors, setErrors] = useState({});
 
     const validateErrors = (values) => {

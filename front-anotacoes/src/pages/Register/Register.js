@@ -47,7 +47,7 @@ export default function Register() {
             return false
         }
         const request = {
-            name: values.user,
+            name: values.name,
             password: values.password,
             email: values.email
         }

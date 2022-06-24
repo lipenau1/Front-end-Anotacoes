@@ -17,6 +17,22 @@ const api = {
     });
     return request;
   },
+  postTable: async (data) => {
+    const request = await axios({
+      method: "POST",
+      data: data,
+      url: "boards",
+    });
+    return request;
+  },
+  getTable: async (data) => {
+    const request = await axios({
+      method: "GET",
+      data: data,
+      url: "boards",
+    });
+    return request;
+  },
   cards: async (data) => {
     const request = await axios.get(
       `http://localhost:5001/container/board?id=${data}`
@@ -40,9 +56,33 @@ const api = {
       url: "container",
     });
   },
-
+  changeLane: async (data) => {
+    await axios({
+      method: "PUT",
+      data: data,
+      url: "container/change-position-container",
+    });
+  },
+  changeCard: async (data) => {
+    await axios({
+      method: "PUT",
+      data: data,
+      url: "container/change-position-card",
+    });
+  },
+  changeBoardData: async (data) => {
+    await axios({
+      method: "POST",
+      data: data,
+      url: "boards/update-board",
+    });
+  },
   deleteLane: async (laneId) => {
     await axios.delete(`http://localhost:5001/container/${laneId}`);
+  },
+  getBoards: async () => {
+    const request = await axios.get(`http://localhost:5001/boards`);
+    return request.data;
   },
 };
 
