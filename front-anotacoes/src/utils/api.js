@@ -80,6 +80,10 @@ const api = {
   deleteLane: async (laneId) => {
     await axios.delete(`http://localhost:5001/container/${laneId}`);
   },
+  getBoards: async () => {
+    const request = await axios.get(`http://localhost:5001/boards`);
+    return request.data;
+  },
 };
 
 export default api;

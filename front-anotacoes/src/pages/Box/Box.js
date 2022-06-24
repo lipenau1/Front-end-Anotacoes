@@ -1,26 +1,43 @@
-import React from "react";
-import "../Home/Home.css"
-
+import React, { Fragment, useEffect, useCallback, useState } from "react";
+import api from "../../utils/api";
+import "../Home/Home.css";
+import { Link } from "react-router-dom";
 
 export default function Boxed() {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-    return (
-        <div class="center">
-            <div class="card-container">
-                <div class="property-card">
-                    <a href="#">
-                        <div class="property-image">
-                            <div class="property-image-title">
-                                <h5>Last edit 25/03/2003 </h5>
-                            </div>
-                        </div></a>
-                    <div class="property-description">
-                        <h5>  Title </h5>
-                        <p>Lorem Ipsum Dipsum hortata. Mixcall Horcho. Mixwell Chingo. More Bingo. Lorem Ipum doth be hard.</p>
-                    </div>
+  const getBoard = useCallback(async () => {
+    setData(await api.getBoards());
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    getBoard();
+  }, [getBoard]);
+
+  return (
+    <Fragment>
+      {isLoading && <div>Carregando</div>}
+      {data.map((data) => (
+        <div class="center" key={data.id}>
+          <div class="card-container">
+            <div class="property-card">
+              <Link to={`/board/${data.id}`}>
+                <div class="property-image">
+                  <div class="property-image-title">
+                    {console.log(data.dateCreated)}
+                    <h5>Created in: {data.dateCreated}</h5>
+                  </div>
                 </div>
+              </Link>
+              <div class="property-description">
+                <h5> {data.title} </h5>
+              </div>
             </div>
+          </div>
         </div>
-    );
-
+      ))}
+    </Fragment>
+  );
 }

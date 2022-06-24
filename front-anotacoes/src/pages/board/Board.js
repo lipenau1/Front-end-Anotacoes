@@ -11,27 +11,15 @@ export default function Board() {
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
 
-  const getBoard = useCallback(async () => {
-    setCards({
-      lanes: await api.cards(id),
-    });
-    setIsLoading(false);
-  }, [id]);
-
   useEffect(() => {
-    getBoard();
-  }, [getBoard]);
-
-  const addCard = async (card, laneId) => {
-    const cardRequest = {
-      id: card.id,
-      title: card.title,
-      description: card.description,
-      label: card.label,
-      containerId: laneId,
+    const getBoard = async () => {
+      setCards({
+        lanes: await api.cards(id),
+      });
+      setIsLoading(false);
     };
-    await api.addCard(cardRequest).then((res) => res);
-  };
+    getBoard();
+  }, [id]);
 
   const updateBoard = async (newData) => {
     const requestObject = {
@@ -40,7 +28,6 @@ export default function Board() {
     };
     await api.changeBoardData(requestObject);
   };
-  console.log(cards);
   return (
     <Fragment>
       {isLoading && <div>Carregando</div>}
@@ -49,7 +36,6 @@ export default function Board() {
         data={cards}
         editable={true}
         draggable={true}
-        onCardAdd={addCard}
         canAddLanes={true}
         onDataChange={updateBoard}
       />
